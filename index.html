@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html><head><meta charset="utf-8" /></head>
 <body>
-<input oninput="changeIp()" type="text" value="192.168.1.111:8080" id='ip'/>
+<input oninput="changeIp()" type="text" value="192.168.1.136:8080" id='ip'/>
 <br/>
 
 <textarea oninput="change()"></textarea>
@@ -12,8 +12,17 @@ function change(e){
   console.log(valore)
   connection.send(valore)
 }
+
+function changeIp(e){
+  console.log("ccc")
+  connection = new WebSocket("ws://"+getIpFromInput())
+}
 // mauro 192.168.1.112
-var connection = new WebSocket("ws://"+document.queryById('ip'));
+connection = new WebSocket("ws://"+getIpFromInput());
+
+function getIpFromInput(){
+  return document.getElementById('ip').value
+}
 
 // Log messages from the server
 connection.onmessage = function (e) {
@@ -22,7 +31,10 @@ connection.onmessage = function (e) {
 connection.onerror = function (e) {
   console.log('Server: ' + e.data);
 };
-
+connection.onopen = function(e) {
+    console.log("Connection established!");
+    connection.send('Hello Me!');
+};
 
 </script>
 </body>
