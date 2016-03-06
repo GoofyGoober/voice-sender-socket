@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8" /></head>
+<body>
+<input oninput="changeIp()" type="text" value="192.168.1.111:8080" id='ip'/>
+<br/>
+
+<textarea oninput="change()"></textarea>
+<script>
+
+function change(e){
+  var valore = document.querySelector("textarea").value
+  console.log(valore)
+  connection.send(valore)
+}
+// mauro 192.168.1.112
+var connection = new WebSocket("ws://"+document.queryById('ip'));
+
+// Log messages from the server
+connection.onmessage = function (e) {
+  console.log('Server: ' + e.data);
+};
+connection.onerror = function (e) {
+  console.log('Server: ' + e.data);
+};
+
+
+</script>
+</body>
+</html>
