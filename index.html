@@ -1,16 +1,43 @@
 <!DOCTYPE html>
 <html><head><meta charset="utf-8" /></head>
 <body>
-<input oninput="changeIp()" type="text" value="192.168.1.136:8080" id='ip'/>
+<input oninput="changeIp()" type="text" value="127.0.0.1:9092" id='ip'/>
 <br/>
 
 <textarea oninput="change()"></textarea>
 <script>
 
+var lastWord;
+var timer;
+
 function change(e){
   var valore = document.querySelector("textarea").value
-  console.log(valore)
-  connection.send(valore)
+  var newWords = valore.split(" ");
+  // console.log("SLICE= " + valore.split(" ")[0]);
+  for(var a = newWords.length - 1; a >= 0 ; a--)
+  {
+    if(a < newWords.length - 1)
+    {
+      console.log(a + " - " + newWords[a]);
+      connection.send(newWords[a])
+    }
+    else
+    {
+      lastWord = newWords[newWords.length - 1];
+      codeForLastWord();
+    }
+  }
+  document.querySelector("textarea").value = "";
+}
+
+function codeForLastWord() 
+{
+  clearTimeout(timer);
+  timer = setTimeout(function()
+  {
+    console.log("Send last = " + lastWord);
+    connection.send(lastWord); 
+  }, 1000);
 }
 
 function changeIp(e){
