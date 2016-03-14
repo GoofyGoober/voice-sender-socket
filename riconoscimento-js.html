@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Riconoscimento JS</title>
+<meta charset="utf-8" />
+</head>
+<body>
+
+<script type="text/javascript">
+    var recognition = new webkitSpeechRecognition();
+  recognition.continuous = true;
+  recognition.interimResults = true;
+  recognition.onstart = function() { console.log("START") }
+  recognition.onresult = function(event) { 
+    console.log("on result")
+    console.log(event) 
+  }
+  recognition.onerror = function(event) {
+    console.log("on error")
+    console.log(event) 
+  }
+  recognition.onend = function() { console.log("END") }
+</script>
+</body>
+</html>
