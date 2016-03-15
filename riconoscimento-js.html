@@ -17,22 +17,24 @@
   </head>
 
 <body>
-<div class="container">
-  <hr/>
-  <a href="#" id="start" class="btn btn-primary">Start riconoscimento</a>
-  <hr/>
-  <p class="output"><em>...diagnostic messages</em></p>
-  <hr/>
-  <input name="interim" type="checkbox" value="html" checked="checked" id="interim"/>
-  <label for="interim">Interim</label>
+  <div class="container">
+    <hr/ style="margin-top: 0">
+    <a href="#" id="start" class="btn btn-primary">Start riconoscimento</a>  
+    <hr/>
 
-  <hr/>
-  <div>
-  <strong>Configurazione ip</strong><br/>
-  <input oninput="changeIp()" type="text" value="127.0.0.1:9092" id='ip'/>
-  </div>
-  <script type="text/javascript" src="client/server.js"></script>
-  <script type="text/javascript" src="client/riconoscimento.js"></script>
-</div><!-- container -->
+    <div class="configurazione-ip">
+      <strong>Configurazione ip</strong>
+      <input oninput="changeIp()" type="text" value="127.0.0.1:9092" id='ip' class="form-control"/>
+      <input name="interim" type="checkbox" value="html" checked="checked" id="interim"/>
+      <label for="interim">Interim</label>
+    </div><!--.configurazione-ip-->
+
+    <hr/>
+    <p class="output"><em>...diagnostic messages</em></p>
+    <hr/>
+
+    <script type="text/javascript" src="client/server.js"></script>
+    <script type="text/javascript" src="client/riconoscimento.js"></script>
+  </div><!-- container -->
 </body>
 </html>
