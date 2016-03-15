@@ -20,6 +20,7 @@ function setupConnection(){
   };
   connection.onopen = function(e) {
     console.log("Connection established!");
+    $('#status-server').html('Connessione col server stabilita - VERBOSO')
     connection.send('Hello Me!');
   };
 }

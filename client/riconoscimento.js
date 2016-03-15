@@ -2,10 +2,11 @@ var SpeechRecognition = webkitSpeechRecognition
 var SpeechRecognitionEvent = webkitSpeechRecognitionEvent
 var recognition = new SpeechRecognition();
 recognition.lang = 'it-IT';
-recognition.interimResults = false;
+recognition.interimResults = true;
+recognition.continuous = true;
 recognition.maxAlternatives = 1;
 
-var diagnostic = document.querySelector('.output');
+var diagnostic = $('.output');
 var start = document.querySelector('#start');
 var btnInterim = document.querySelector('#interim')
 
@@ -21,15 +22,23 @@ btnInterim.addEventListener('change',function(){
   }
 });
 
-recognition.onresult = function(event) {
-  var color = event.results[0][0].transcript;
-  diagnostic.textContent = 'Result received: ' + color + '.';
-  console.log('Confidence: ' + event.results[0][0].confidence);
-}
+
 
 recognition.onspeechend = function() {
   //recognition.stop();
+  console.log("FOLDSAD")
 }
+
+var oldWord="pippo";
+recognition.onresult = function(event) {
+  var lastIndex = event.results.length
+  var word = event.results[lastIndex-1][0].transcript
+  var confidence = event.results[lastIndex-1][0].confidence;
+  diagnostic.prepend("<li>"+word+"<pre>"+confidence+"</pre>");
+//  recognition.start();
+
+}
+
 
 recognition.onnomatch = function(event) {
   diagnostic.textContent = 'I didnt recognise that color.';
@@ -38,3 +47,9 @@ recognition.onnomatch = function(event) {
 recognition.onerror = function(event) {
   diagnostic.textContent = 'Error occurred in recognition: ' + event.error;
 }
+
+recognition.onend = function() {
+  console.log('Speech recognition service disconnected');
+  recognition.start();
+}
+
