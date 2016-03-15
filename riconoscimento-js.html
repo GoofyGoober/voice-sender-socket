@@ -5,60 +5,27 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width">
-
     <title>Speech color changer</title>
-
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
   </head>
 
-  <body>
-    <h1>Speech color changer</h1>
+<body>
 
-    <p>Tap/click then say a color to change the background color of the app.</p>
-    <div>
-        <p class="output"><em>...diagnostic messages</em></p>
-    </div>
+<a href="#" id="start">start riconoscimento</a>
 
-    <script>
+<p class="output"><em>...diagnostic messages</em></p>
 
-var SpeechRecognition = webkitSpeechRecognition
-var SpeechRecognitionEvent = webkitSpeechRecognitionEvent
+<hr/>
+<input name="interim" type="checkbox" value="html" checked="checked" id="interim"/>
+<label for="interim">Interim</label>
 
-var recognition = new SpeechRecognition();
-recognition.lang = 'it-IT';
-recognition.interimResults = false;
-recognition.maxAlternatives = 1;
+<hr/>
+<div>
+<strong>Configurazione ip</strong><br/>
+<input oninput="changeIp()" type="text" value="127.0.0.1:9092" id='ip'/>
+</div>
 
-var diagnostic = document.querySelector('.output');
-var bg = document.querySelector('html');
-document.body.onclick = function() {
-  recognition.start();
-}
-
-recognition.onstart = function(event){
-  console.log("on start")
-}
-
-recognition.onresult = function(event) {
-  var color = event.results[0][0].transcript;
-  diagnostic.textContent = 'Result received: ' + color + '.';
-  bg.style.backgroundColor = color;
-  console.log('Confidence: ' + event.results[0][0].confidence);
-}
-
-recognition.onspeechend = function() {
-  //recognition.stop();
-}
-
-recognition.onnomatch = function(event) {
-  diagnostic.textContent = 'I didnt recognise that color.';
-}
-
-recognition.onerror = function(event) {
-  diagnostic.textContent = 'Error occurred in recognition: ' + event.error;
-}
-    </script>
-  </body>
+<script type="text/javascript" src="client/server.js"></script>
+<script type="text/javascript" src="client/riconoscimento.js"></script>
+   
+</body>
 </html>
