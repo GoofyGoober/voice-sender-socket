@@ -29,14 +29,30 @@ recognition.onspeechend = function() {
   console.log("FOLDSAD")
 }
 
+var synth = window.speechSynthesis;
+
+
 var oldWord="pippo";
 recognition.onresult = function(event) {
   var lastIndex = event.results.length
-  var word = event.results[lastIndex-1][0].transcript
+  var word = event.results[lastIndex-1][0].transcript;
   var confidence = event.results[lastIndex-1][0].confidence;
-  diagnostic.prepend("<li>"+word+"<pre>"+confidence+"</pre>");
+  var wordsArray = word.split(" ");
+  var newWord = wordsArray[wordsArray.length -1];
+  for(var a = 0; a < wordsArray.length; a++)
+  {
+    connection.send(wordsArray[a]);
+  }
+  diagnostic.prepend("<li>"+word+"<pre>"+lastIndex+"---"+confidence+"</pre>");
+  // if(oldWord != newWord)
+  // {
+  //   oldWord = newWord;
+  //   connection.send(newWord);
+  // }
+  // if (lastIndex )
 //  recognition.start();
-
+// var utterThis = new SpeechSynthesisUtterance(word);
+// synth.speak(utterThis)
 }
 
 
